@@ -557,6 +557,30 @@ Answer:`;
       throw error;
     }
   }
+
+  async clearHistory() {
+    try {
+      logger.info('Clearing RAG query history and resetting metrics');
+      
+      this.queryHistory.clear();
+      this.performanceMetrics = {
+        totalQueries: 0,
+        successfulQueries: 0,
+        failedQueries: 0,
+        totalTokensUsed: 0,
+        averageProcessingTime: 0,
+        averageConfidence: 0,
+        lastQueryTime: null,
+        startTime: new Date().toISOString()
+      };
+      
+      logger.info('RAG history cleared successfully');
+      return { success: true, message: 'History and metrics reset' };
+    } catch (error) {
+      logger.error('Failed to clear RAG history', { error: error.message });
+      throw error;
+    }
+  }
 }
 
 export const ragService = new RAGService();

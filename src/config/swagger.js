@@ -90,6 +90,7 @@ const buildOpenApiSpec = () => ({
     '/documents': { get: { summary: 'Get documents (stats + pagination)', responses: { 200: { description: 'OK' } } } },
     '/documents/all': { get: { summary: 'Get all documents list', responses: { 200: { description: 'OK' } } } },
     '/documents/stats': { get: { summary: 'Get system stats', responses: { 200: { description: 'OK' } } } },
+    '/documents': { delete: { summary: 'Reset all documents (clear collection)', responses: { 200: { description: 'All documents cleared' } } } },
     '/documents/{documentId}': {
       get: { summary: 'Get document info', parameters: [ { in: 'path', name: 'documentId', required: true, schema: { type: 'string' } } ], responses: { 200: { description: 'OK' }, 404: { description: 'Not found' } } },
       delete: { summary: 'Delete a document', parameters: [ { in: 'path', name: 'documentId', required: true, schema: { type: 'string' } } ], responses: { 200: { description: 'Deleted' } } }
@@ -109,7 +110,8 @@ const buildOpenApiSpec = () => ({
       }
     },
     '/rag/stats': { get: { summary: 'Get RAG stats', responses: { 200: { description: 'OK' } } } },
-    '/rag/history': { get: { summary: 'Get query history', parameters: [ { in: 'query', name: 'limit', schema: { type: 'integer', minimum: 1, maximum: 100 } } ], responses: { 200: { description: 'OK' } } } }
+    '/rag/history': { get: { summary: 'Get query history', parameters: [ { in: 'query', name: 'limit', schema: { type: 'integer', minimum: 1, maximum: 100 } } ], responses: { 200: { description: 'OK' } } } },
+    '/rag/history': { delete: { summary: 'Clear query history', responses: { 200: { description: 'History cleared' } } } },
   }
 });
 

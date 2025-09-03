@@ -360,12 +360,19 @@ export class VectorService {
 
       logger.warn('Clearing entire collection');
 
+      const allDocs = await this.getAllDocuments();
+      if (allDocs.length === 0) {
+        logger.info('Collection is already empty');
+        return { deletedCount: 0 };
+      }
+
+      const ids = allDocs.map(doc => doc.id);
       const result = await this.collection.delete({
-        where: {}
+        ids: ids
       });
 
-      logger.info('Collection cleared successfully', { result });
-      return result;
+      logger.info('Collection cleared successfully', { deletedCount: ids.length, result });
+      return { deletedCount: ids.length, result };
     } catch (error) {
       logger.error('Failed to clear collection', { error: error.message });
       throw error;

@@ -5,7 +5,8 @@ import {
   getAllDocuments,
   getDocumentInfo, 
   deleteDocument, 
-  getSystemStats 
+  getSystemStats,
+  resetDocuments
 } from '../controllers/documentController.js';
 import { 
   uploadMiddleware, 
@@ -20,10 +21,8 @@ import {
 
 const router = express.Router();
 
-// Apply validation middleware to all routes
 router.use(sanitizeInput);
 
-// Document upload with file handling
 router.post('/upload', 
   uploadMiddleware, 
   handleUploadError, 
@@ -32,10 +31,10 @@ router.post('/upload',
   uploadDocument
 );
 
-// Document retrieval and management
 router.get('/', validatePagination, getDocuments);
 router.get('/all', getAllDocuments);
 router.get('/stats', getSystemStats);
+router.delete('/', resetDocuments);
 router.get('/:documentId', getDocumentInfo);
 router.delete('/:documentId', deleteDocument);
 

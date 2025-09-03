@@ -408,7 +408,6 @@ export class DocumentService {
     try {
       const documents = await vectorService.getAllDocuments();
       
-      // Transform to match frontend Document type
       return documents.map(doc => ({
         id: doc.id,
         title: doc.metadata?.source || 'Unknown',
@@ -420,6 +419,20 @@ export class DocumentService {
       }));
     } catch (error) {
       logger.error('Failed to get all documents', { error: error.message });
+      throw error;
+    }
+  }
+
+  async resetDocuments() {
+    try {
+      logger.warn('Resetting all documents from vector database');
+      
+      const result = await vectorService.clearCollection();
+      
+      logger.info('Document reset completed successfully');
+      return result;
+    } catch (error) {
+      logger.error('Failed to reset documents', { error: error.message });
       throw error;
     }
   }

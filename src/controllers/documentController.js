@@ -113,6 +113,28 @@ export const getAllDocuments = async (req, res) => {
   }
 };
 
+export const resetDocuments = async (req, res) => {
+  try {
+    logger.info('Document reset request');
+    
+    const result = await documentService.resetDocuments();
+    
+    res.status(200).json({
+      success: true,
+      message: 'All documents cleared successfully',
+      data: result
+    });
+  } catch (error) {
+    logger.error('Document reset failed', { error: error.message });
+    
+    res.status(500).json({
+      success: false,
+      error: 'Failed to reset documents',
+      message: error.message
+    });
+  }
+};
+
 export const getDocumentInfo = async (req, res) => {
   try {
     const { documentId } = req.params;
