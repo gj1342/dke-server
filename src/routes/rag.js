@@ -3,7 +3,8 @@ import {
   queryRAG, 
   batchQueryRAG, 
   getRAGStats, 
-  getQueryHistory 
+  getQueryHistory,
+  clearHistory
 } from '../controllers/ragController.js';
 import { 
   validateRAGQuery, 
@@ -22,5 +23,6 @@ router.post('/batch-query', validateRAGQuery, batchQueryRAG);
 // RAG system information
 router.get('/stats', getRAGStats);
 router.get('/history', getQueryHistory);
+router.delete('/history', clearHistory);
 
 export default router;

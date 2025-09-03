@@ -130,3 +130,26 @@ export const getQueryHistory = async (req, res) => {
     });
   }
 };
+
+export const clearHistory = async (req, res) => {
+  try {
+    logger.info('Clear RAG history request');
+
+    const result = await ragService.clearHistory();
+    
+    res.status(200).json({
+      success: true,
+      message: 'RAG history cleared successfully',
+      data: result
+    });
+
+  } catch (error) {
+    logger.error('Clear RAG history failed', { error: error.message });
+
+    res.status(500).json({
+      success: false,
+      error: 'Failed to clear RAG history',
+      message: error.message
+    });
+  }
+};

@@ -204,6 +204,55 @@ curl -X POST http://localhost:3000/api/v1/rag/batch-query \
   }'
 ```
 
+### Reset Documents (Clear Collection)
+
+```bash
+# Clear all documents and embeddings from the vector database
+curl -X DELETE http://localhost:3000/api/v1/documents
+
+# Response:
+{
+  "success": true,
+  "message": "All documents cleared successfully",
+  "data": {
+    "deletedCount": 5,
+    "result": { ... }
+  }
+}
+```
+
+### Clear RAG History
+
+```bash
+# Clear all query history and reset performance metrics
+curl -X DELETE http://localhost:3000/api/v1/rag/history
+
+# Response:
+{
+  "success": true,
+  "message": "RAG history cleared successfully",
+  "data": {
+    "success": true,
+    "message": "History and metrics reset"
+  }
+}
+```
+
+### Complete System Reset
+
+```bash
+# For development/testing - clear everything
+# 1. Clear all documents
+curl -X DELETE http://localhost:3000/api/v1/documents
+
+# 2. Clear RAG history
+curl -X DELETE http://localhost:3000/api/v1/rag/history
+
+# 3. Verify clean state
+curl http://localhost:3000/api/v1/documents/all      # Should return []
+curl http://localhost:3000/api/v1/rag/stats         # Should show 0 queries
+```
+
 ## 🔍 How It Works
 
 ### 1. Document Processing
