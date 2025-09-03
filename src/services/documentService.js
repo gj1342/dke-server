@@ -403,6 +403,26 @@ export class DocumentService {
       throw error;
     }
   }
+
+  async getAllDocuments() {
+    try {
+      const documents = await vectorService.getAllDocuments();
+      
+      // Transform to match frontend Document type
+      return documents.map(doc => ({
+        id: doc.id,
+        title: doc.metadata?.source || 'Unknown',
+        filename: doc.metadata?.source || 'Unknown',
+        size: doc.metadata?.originalSize || 0,
+        type: doc.metadata?.fileType || 'unknown',
+        uploadDate: doc.metadata?.timestamp || new Date().toISOString(),
+        status: 'processed'
+      }));
+    } catch (error) {
+      logger.error('Failed to get all documents', { error: error.message });
+      throw error;
+    }
+  }
 }
 
 export const documentService = new DocumentService();

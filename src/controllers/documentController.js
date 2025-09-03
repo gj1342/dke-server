@@ -92,6 +92,27 @@ export const getDocuments = async (req, res) => {
   }
 };
 
+export const getAllDocuments = async (req, res) => {
+  try {
+    logger.info('All documents retrieval request');
+    
+    const documents = await documentService.getAllDocuments();
+    
+    res.status(200).json({
+      success: true,
+      data: documents
+    });
+  } catch (error) {
+    logger.error('All documents retrieval failed', { error: error.message });
+    
+    res.status(500).json({
+      success: false,
+      error: 'Failed to retrieve documents',
+      message: error.message
+    });
+  }
+};
+
 export const getDocumentInfo = async (req, res) => {
   try {
     const { documentId } = req.params;
