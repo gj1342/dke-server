@@ -88,6 +88,7 @@ const buildOpenApiSpec = () => ({
       }
     },
     '/documents': { get: { summary: 'Get documents (stats + pagination)', responses: { 200: { description: 'OK' } } } },
+    '/documents/all': { get: { summary: 'Get all documents list', responses: { 200: { description: 'OK' } } } },
     '/documents/stats': { get: { summary: 'Get system stats', responses: { 200: { description: 'OK' } } } },
     '/documents/{documentId}': {
       get: { summary: 'Get document info', parameters: [ { in: 'path', name: 'documentId', required: true, schema: { type: 'string' } } ], responses: { 200: { description: 'OK' }, 404: { description: 'Not found' } } },

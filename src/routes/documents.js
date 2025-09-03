@@ -2,6 +2,7 @@ import express from 'express';
 import { 
   uploadDocument, 
   getDocuments, 
+  getAllDocuments,
   getDocumentInfo, 
   deleteDocument, 
   getSystemStats 
@@ -33,6 +34,7 @@ router.post('/upload',
 
 // Document retrieval and management
 router.get('/', validatePagination, getDocuments);
+router.get('/all', getAllDocuments);
 router.get('/stats', getSystemStats);
 router.get('/:documentId', getDocumentInfo);
 router.delete('/:documentId', deleteDocument);
